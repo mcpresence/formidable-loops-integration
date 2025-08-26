@@ -1,0 +1,239 @@
+# Copyright (C) 2025 Formidable Loops.so Integration
+# This file is distributed under the same license as the Formidable Loops.so Integration package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Formidable Loops.so Integration 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/formidable-loops-integration\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-08-26T12:00:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: formidable-loops\n"
+
+#. Plugin Name of the plugin
+msgid "Formidable Loops.so Add-On"
+msgstr ""
+
+#. Description of the plugin
+msgid "Send transactional emails through Loops.so API when Formidable Forms are submitted"
+msgstr ""
+
+#. Author of the plugin
+msgid "Your Name"
+msgstr ""
+
+#: formidable-loops.php:50
+msgid "Formidable Loops.so Add-On requires Formidable Forms to be installed and activated."
+msgstr ""
+
+#: formidable-loops.php:87
+msgid "Loops.so Email"
+msgstr ""
+
+#: formidable-loops.php:139
+msgid "Loops.so Integration"
+msgstr ""
+
+#: formidable-loops.php:140
+msgid "Loops Integration"
+msgstr ""
+
+#: formidable-loops.php:152
+msgid "Loops.so API Configuration"
+msgstr ""
+
+#: formidable-loops.php:159
+msgid "API Key"
+msgstr ""
+
+#: formidable-loops.php:170
+msgid "Enter your Loops.so API key"
+msgstr ""
+
+#: formidable-loops.php:178
+msgid "Loops.so Integration Settings"
+msgstr ""
+
+#: formidable-loops.php:190
+msgid "How to Use This Add-On"
+msgstr ""
+
+#: formidable-loops.php:192
+msgid "Enter your Loops.so API key above and save"
+msgstr ""
+
+#: formidable-loops.php:193
+msgid "Create transactional email templates in your Loops.so dashboard"
+msgstr ""
+
+#: formidable-loops.php:194
+msgid "Go to your form → Settings → Actions → Add \"Loops.so Email\" action"
+msgstr ""
+
+#: formidable-loops.php:195
+msgid "Configure the template ID and recipient settings"
+msgstr ""
+
+#: formidable-loops.php:196
+msgid "Test your form to ensure emails are sent via Loops"
+msgstr ""
+
+#: formidable-loops.php:199
+msgid "Template Variables"
+msgstr ""
+
+#: formidable-loops.php:200
+msgid "The following system variables are always available in your Loops templates:"
+msgstr ""
+
+#: formidable-loops.php:203
+msgid "Will be \"create\" or \"update\""
+msgstr ""
+
+#: formidable-loops.php:204
+msgid "The unique entry ID"
+msgstr ""
+
+#: formidable-loops.php:205
+msgid "The unique entry key"
+msgstr ""
+
+#: formidable-loops.php:206
+msgid "The form ID"
+msgstr ""
+
+#: formidable-loops.php:207
+msgid "Entry creation date"
+msgstr ""
+
+#: formidable-loops.php:208
+msgid "Entry last update date"
+msgstr ""
+
+#: formidable-loops.php:210
+msgid "Plus all your form fields will be available as variables using their field IDs."
+msgstr ""
+
+#: formidable-loops.php:370
+msgid "Template ID"
+msgstr ""
+
+#: formidable-loops.php:377
+msgid "Send To Email"
+msgstr ""
+
+#: views/loops-action-form.php:35
+msgid "API Key Required"
+msgstr ""
+
+#: views/loops-action-form.php:43
+msgid "Please configure your Loops.so API key in %sSettings → Loops Integration%s first."
+msgstr ""
+
+#: views/loops-action-form.php:53
+msgid "Loops Template ID"
+msgstr ""
+
+#: views/loops-action-form.php:67
+msgid "Enter your transactional template ID from Loops.so dashboard."
+msgstr ""
+
+#: views/loops-action-form.php:68
+msgid "Find your template ID →"
+msgstr ""
+
+#: views/loops-action-form.php:75
+msgid "Send To"
+msgstr ""
+
+#: views/loops-action-form.php:80
+msgid "Option 1: Use form field"
+msgstr ""
+
+#: views/loops-action-form.php:84
+msgid "— Select Email Field —"
+msgstr ""
+
+#: views/loops-action-form.php:87
+msgid "Email Fields"
+msgstr ""
+
+#: views/loops-action-form.php:95
+msgid "All Fields"
+msgstr ""
+
+#: views/loops-action-form.php:105
+msgid "Option 2: Fixed email address"
+msgstr ""
+
+#: views/loops-action-form.php:113
+msgid "If a form field is selected above, this will be ignored."
+msgstr ""
+
+#: views/loops-action-form.php:120
+msgid "Dynamic Subject"
+msgstr ""
+
+#: views/loops-action-form.php:130
+msgid "New submission from {{ name }}"
+msgstr ""
+
+#: views/loops-action-form.php:133
+msgid "Use field variables like {{ field_id }}. Leave empty to use your template's default subject."
+msgstr ""
+
+#: views/loops-action-form.php:135
+msgid "Available variables:"
+msgstr ""
+
+#: views/loops-action-form.php:145
+msgid "CC Recipients"
+msgstr ""
+
+#: views/loops-action-form.php:155
+msgid "Comma-separated list of additional email recipients (optional)."
+msgstr ""
+
+#: views/loops-action-form.php:161
+msgid "Send Email When"
+msgstr ""
+
+#: views/loops-action-form.php:168
+msgid "Entry is created (form submission)"
+msgstr ""
+
+#: views/loops-action-form.php:176
+msgid "Entry is updated (edit entry)"
+msgstr ""
+
+#: views/loops-action-form.php:179
+msgid "Select when this email should be sent via Loops.so."
+msgstr ""
+
+#: views/loops-action-form.php:186
+msgid "💡 Pro Tips"
+msgstr ""
+
+#: views/loops-action-form.php:189
+msgid "Create and test your email template in Loops.so before configuring this action."
+msgstr ""
+
+#: views/loops-action-form.php:190
+msgid "Use descriptive template IDs to easily identify them later."
+msgstr ""
+
+#: views/loops-action-form.php:191
+msgid "Test with a real form submission to ensure variables are working correctly."
+msgstr ""
+
+#: views/loops-action-form.php:192
+msgid "Check your WordPress error logs if emails aren't being sent."
+msgstr ""
+
+#: views/loops-action-form.php:208
+msgid "At least one trigger must be selected."
+msgstr ""
