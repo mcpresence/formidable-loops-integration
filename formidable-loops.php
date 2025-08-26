@@ -5,7 +5,6 @@
  * Version: 1.0.0
  * Author: Presence Platform
  * Author URI: https://presenceplatform.io
- * License: GPL2
  * Text Domain: formidable-loops
  * Domain Path: /languages
  * Requires Plugins: formidable
@@ -45,20 +44,36 @@ class FormidableLoopsAddon {
         // Load text domain
         load_plugin_textdomain('formidable-loops', false, dirname(plugin_basename(__FILE__)) . '/languages');
         
-        // Initialize the add-on
-        new FormidableLoopsIntegration();
+        // Initialize the add-on only after dependencies are confirmed
+        add_action('init', array($this, 'init_integration'), 20);
+    }
+    
+    /**
+     * Initialize integration after WordPress and plugins are fully loaded
+     */
+    public function init_integration() {
+        // Double-check that Formidable is still available
+        if (class_exists('FrmForm') && class_exists('FrmFormAction')) {
+            new FormidableLoopsIntegration();
+        }
     }
     
     /**
      * Check if required dependencies are active
      */
     private function check_dependencies() {
+        // Check if Formidable Forms is active
         if (!class_exists('FrmForm')) {
             return false;
         }
         
         // Check for minimum Formidable version
         if (defined('FRM_VERSION') && version_compare(FRM_VERSION, '6.0', '<')) {
+            return false;
+        }
+        
+        // Check if we have the required action class (Pro feature)
+        if (!class_exists('FrmFormAction')) {
             return false;
         }
         
@@ -69,9 +84,26 @@ class FormidableLoopsAddon {
      * Show admin notices for missing dependencies
      */
     public function admin_notices() {
-        if (!$this->check_dependencies()) {
+        if (!class_exists('FrmForm')) {
             echo '<div class="notice notice-error">';
-            echo '<p><strong>Formidable Loops.so Add-On</strong> requires Formidable Forms (v6.0 or higher) to be installed and activated.</p>';
+            echo '<p><strong>Formidable Loops.so Add-On</strong> requires Formidable Forms to be installed and activated.</p>';
+            echo '<p><a href="' . admin_url('plugin-install.php?s=formidable+forms&tab=search&type=term') . '" class="button">Install Formidable Forms</a></p>';
+            echo '</div>';
+            return;
+        }
+        
+        if (!class_exists('FrmFormAction')) {
+            echo '<div class="notice notice-error">';
+            echo '<p><strong>Formidable Loops.so Add-On</strong> requires Formidable Forms Pro to use form actions.</p>';
+            echo '<p><a href="https://formidableforms.com/pricing/" target="_blank" class="button">Upgrade to Formidable Pro</a></p>';
+            echo '</div>';
+            return;
+        }
+        
+        if (defined('FRM_VERSION') && version_compare(FRM_VERSION, '6.0', '<')) {
+            echo '<div class="notice notice-error">';
+            echo '<p><strong>Formidable Loops.so Add-On</strong> requires Formidable Forms v6.0 or higher. You have v' . FRM_VERSION . '.</p>';
+            echo '<p><a href="' . admin_url('plugins.php') . '" class="button">Update Formidable Forms</a></p>';
             echo '</div>';
         }
     }
@@ -110,10 +142,7 @@ class FormidableLoopsIntegration {
     public function __construct() {
         $this->api_key = get_option('loops_api_key', '');
         
-        // Add Loops action to Formidable
-        add_filter('frm_email_action_options', array($this, 'add_loops_action_option'));
-        add_filter('frm_action_triggers', array($this, 'add_loops_action_triggers'));
-        add_action('frm_trigger_loops_action', array($this, 'trigger_loops_action'), 10, 3);
+        // Wait for Formidable to load before registering our action
         add_action('frm_registered_form_actions', array($this, 'register_loops_action'));
         
         // Admin interface
@@ -126,26 +155,13 @@ class FormidableLoopsIntegration {
     }
     
     /**
-     * Register Loops action with Formidable
+     * Register Loops action with Formidable (called after Formidable loads)
      */
     public function register_loops_action() {
-        FrmFormActionsController::register_actions('FormidableLoopsAction');
-    }
-    
-    /**
-     * Add Loops to email action options
-     */
-    public function add_loops_action_option($actions) {
-        $actions['loops'] = __('Loops.so Email', 'formidable-loops');
-        return $actions;
-    }
-    
-    /**
-     * Add triggers for Loops action
-     */
-    public function add_loops_action_triggers($triggers) {
-        $triggers['loops'] = array('create', 'update');
-        return $triggers;
+        // Only register if FrmFormAction class exists
+        if (class_exists('FrmFormAction')) {
+            new FormidableLoopsAction();
+        }
     }
     
     /**
@@ -391,10 +407,16 @@ class FormidableLoopsIntegration {
 
 /**
  * Formidable Loops Action Class
+ * Only instantiated after Formidable Forms is loaded
  */
 class FormidableLoopsAction extends FrmFormAction {
     
     public function __construct() {
+        // Verify parent class exists before calling parent constructor
+        if (!class_exists('FrmFormAction')) {
+            return;
+        }
+        
         $action_ops = array(
             'classes' => 'frm_email_icon frm_icon_font',
             'limit' => 99,
@@ -404,8 +426,6 @@ class FormidableLoopsAction extends FrmFormAction {
         );
         
         $this->FrmFormAction('loops', __('Loops.so Email', 'formidable-loops'), $action_ops);
-        
-        add_filter('frm_email_action_options', array($this, 'add_to_dropdown'));
     }
     
     /**
